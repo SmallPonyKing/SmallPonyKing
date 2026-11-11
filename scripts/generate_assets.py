@@ -1,6 +1,7 @@
 """Generate original profile SVG artwork without external image services."""
 from pathlib import Path
 from html import escape
+from math import sin, cos, pi
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'assets'
@@ -13,6 +14,23 @@ def svg(name, width, height, content, title):
 def text(x, y, value, size=16, fill=MUTED, weight=400, extra=''):
     return f'<text x="{x}" y="{y}" font-family="Arial,Helvetica,sans-serif" font-size="{size}" fill="{fill}" font-weight="{weight}" {extra}>{escape(value)}</text>'
 
+def soccer_ball(cx, cy, radius):
+    def point(r, a):
+        return f'{r*cos(a):.3f},{r*sin(a):.3f}'
+    angles = [-pi/2+i*2*pi/5 for i in range(5)]
+    content = f'<defs><clipPath id="ball-clip"><circle r="{radius}"/></clipPath></defs><circle r="{radius}" fill="{WHITE}"/>'
+    content += '<g clip-path="url(#ball-clip)">'
+    center = ' '.join(point(radius*.38,a) for a in angles)
+    content += f'<polygon points="{center}" fill="{INK}"/>'
+    for a in angles:
+        inner, outer = point(radius*.38,a), point(radius*.68,a)
+        content += f'<path d="M{inner}L{outer}" stroke="{INK}" stroke-width="{radius*.045}"/>'
+        vertices = [(radius*.68,a),(radius*.82,a-.28),(radius*1.1,a-.4),(radius*1.1,a+.4),(radius*.82,a+.28)]
+        points = ' '.join(point(r,theta) for r,theta in vertices)
+        content += f'<polygon points="{points}" fill="{INK}"/>'
+    content += f'</g><circle r="{radius}" fill="none" stroke="{GOLD}" stroke-width="1.5"/>'
+    return f'<g transform="translate({cx} {cy})">{content}</g>'
+
 lines = ''.join(f'<path d="M{x} 0V460" stroke="#fff" stroke-opacity=".022"/>' for x in range(0,1201,60))
 lines += ''.join(f'<path d="M0 {y}H1200" stroke="#fff" stroke-opacity=".022"/>' for y in range(0,461,60))
 rings = ''.join(f'<circle cx="970" cy="236" r="{r}" fill="none" stroke="{GOLD}" stroke-opacity="{o}"/>' for r,o in ((84,.6),(126,.3),(168,.15)))
@@ -20,23 +38,23 @@ svg('hero.svg',1200,460,
     '<rect x="1" y="1" width="1198" height="458" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+lines+
     '<circle cx="970" cy="236" r="230" fill="url(#glow)"/>'+rings+
     '<path d="M970 50V422M784 236H1156" stroke="#dbc29a" stroke-opacity=".12"/>'+
-    '<path d="M970 151L1044 194V279L970 322L896 279V194Z M970 151V236L1044 279 M970 236L896 279 M970 236L1044 194 M970 236L896 194 M970 236V322" fill="none" stroke="url(#gold)" stroke-width="1.5"/>'+
+    soccer_ball(970,236,97)+
     '<circle cx="970" cy="68" r="5" fill="#dbc29a"/><circle cx="844" cy="236" r="4" fill="#dbc29a"/><circle cx="1058" cy="326" r="4" fill="#dbc29a"/>'+
     '<path d="M54 54H84" stroke="#dbc29a" stroke-width="2"/>'+
     text(96,60,'SMALLPONYKING',14,GOLD,600,'letter-spacing="3"')+
-    text(54,154,'Intelligence,',66,WHITE,600,'letter-spacing="-2"')+
-    text(54,231,'engineered.',66,WHITE,600,'letter-spacing="-2"')+
+    text(54,154,'Read the field.',66,WHITE,600,'letter-spacing="-2"')+
+    text(54,231,'Build the play.',66,WHITE,600,'letter-spacing="-2"')+
     text(57,282,'AI  /  AGENTS  /  SOFTWARE ENGINEERING',14,GOLD,400,'letter-spacing="2"')+
-    text(57,329,'Turning complex workflows into useful software.',19,MUTED)+
+    text(57,329,'Code. Systems. Intelligence. Always moving forward.',19,MUTED)+
     '<path d="M56 383H708" stroke="#2b3442"/>'+
-    text(57,416,'THOUGHTFUL SYSTEMS. PRACTICAL OUTCOMES.',11,MUTED,400,'letter-spacing="2"')+
+    text(57,416,'ALWAYS LEARNING. ALWAYS MOVING FORWARD.',11,MUTED,400,'letter-spacing="2"')+
     text(908,416,'BUILD / ITERATE',10,GOLD,400,'letter-spacing="2"'),
-    'SmallPonyKing — Intelligence, engineered. AI, agents, and software engineering.')
+    'SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering.')
 
 def button(name,label,width,primary=False):
     svg(name,width,54,f'<rect x="1" y="1" width="{width-2}" height="52" rx="10" fill="{GOLD if primary else PANEL}" stroke="{GOLD if primary else "#344050"}"/>'+text(21,33,label,14,INK if primary else WHITE,600)+f'<path d="M{width-36} 21l6 6-6 6m-8-6h14" stroke="{INK if primary else GOLD}" stroke-width="1.5" fill="none"/>',label)
 
-button('explore.svg','Explore my focus',206,True)
+button('explore.svg','Follow the ball',206,True)
 button('discuss.svg','Start a conversation',244)
 button('approach.svg','Engineering approach',258)
 
@@ -59,24 +77,18 @@ card('engineering.svg','02','Software Engineering','Design → build → improve
      'PYTHON   /   JAVASCRIPT   /   SQL   /   GIT',
      '<path d="M504 36l-14 14 14 14m28-28l14 14-14 14m-10-30l-10 33" fill="none" stroke="#dbc29a" stroke-width="1.5"/>')
 
-svg('workflow.svg',1200,144,
-    '<rect x="1" y="1" width="1198" height="142" rx="20" fill="#0c1017" stroke="#2b3442"/>'+text(30,33,'THE WORKFLOW',10,GOLD,400,'letter-spacing="2"')+
-    '<path d="M80 76H1120" stroke="#344050"/>'+
-    ''.join(f'<circle cx="{x}" cy="76" r="6" fill="#dbc29a"/>'+text(x,115,label,13,WHITE,400,'text-anchor="middle"') for x,label in [(80,'OBSERVE'),(340,'REASON'),(600,'BUILD'),(860,'VALIDATE'),(1120,'ITERATE')]),
-    'Workflow: observe, reason, build, validate, iterate.')
-
 # Compact artwork keeps headings readable when the README is viewed on a phone.
 svg('hero-mobile.svg',600,510,
     '<rect x="1" y="1" width="598" height="508" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
     '<circle cx="507" cy="91" r="46" fill="none" stroke="#dbc29a" stroke-opacity=".3"/>'+
-    '<path d="M507 62l25 15v29l-25 14-25-14V77Z" fill="none" stroke="#dbc29a"/>'+
+    soccer_ball(507,91,35)+
     text(34,57,'SMALLPONYKING',15,GOLD,600,'letter-spacing="3"')+
-    text(34,183,'Intelligence,',64,WHITE,600,'letter-spacing="-2"')+
-    text(34,259,'engineered.',64,WHITE,600,'letter-spacing="-2"')+
+    text(34,183,'Read the field.',64,WHITE,600,'letter-spacing="-2"')+
+    text(34,259,'Build the play.',64,WHITE,600,'letter-spacing="-2"')+
     text(36,310,'AI / AGENTS / SOFTWARE ENGINEERING',17,GOLD)+
-    text(36,369,'Turning complex workflows',22,MUTED)+text(36,400,'into useful software.',22,MUTED)+
-    '<path d="M36 443H564" stroke="#2b3442"/>'+text(36,478,'THOUGHTFUL SYSTEMS. PRACTICAL OUTCOMES.',12,MUTED),
-    'SmallPonyKing — Intelligence, engineered. AI, agents, and software engineering.')
+    text(36,369,'Code. Systems. Intelligence.',22,MUTED)+text(36,400,'Always moving forward.',22,MUTED)+
+    '<path d="M36 443H564" stroke="#2b3442"/>'+text(36,478,'ALWAYS LEARNING. ALWAYS MOVING FORWARD.',12,MUTED),
+    'SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering.')
 for name,num,title,description in (
     ('ai-systems-mobile.svg','01',('AI & Agent','Systems'),('Models. Tools.','Human review.')),
     ('engineering-mobile.svg','02',('Software','Engineering'),('Design. Build.','Keep improving.')),
