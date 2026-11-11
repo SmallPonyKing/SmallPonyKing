@@ -7,18 +7,23 @@
 </picture>
 </p>
 
-<p align="center">
-  I build intelligent software with a focus on clear design, dependable systems, and practical AI.<br />
-  Exploring how language models, tools, and thoughtful engineering can work together.
-</p>
+<p align="center"><strong>AI · Agents · Software Engineering</strong><br />
+Building useful intelligence with reliable software.</p>
 
-## Software evolution
+## AI landscape
 
-Code and algorithms. Connected software. Cloud systems. Applied AI. Agent workflows.<br />
-Each layer expands what we can build. Follow the ball to my focus today.
+<picture>
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/ai-landscape-mobile-light.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/ai-landscape-light.svg" />
+  <source media="(max-width: 600px)" srcset="./assets/ai-landscape-mobile.svg" />
+  <img src="./assets/ai-landscape.svg" width="100%" alt="AI landscape: OpenAI — reasoning and tool use; Claude — reasoning and coding; Gemini — multimodal AI; DeepSeek — open-weight models; Hugging Face — models and datasets; Ollama — local model runtime." />
+</picture>
+
+<p align="center"><strong>My direction</strong><br />
+Models + tools + human review → dependable agents.</p>
 
 <details>
-<summary><strong>⚽ Follow the ball</strong> — click to reveal the animation</summary>
+<summary><strong>⚽ Follow the ball</strong> — software evolution → my focus</summary>
 
 <br />
 
@@ -34,57 +39,5 @@ Each layer expands what we can build. Follow the ball to my focus today.
 </picture>
 
 </details>
-
-### Where I am now
-
-My focus is **AI and agent systems, grounded in software engineering**: connecting models with tools, keeping state useful, and making results clear enough for people to review. I care about the foundations behind the intelligence—reliable code, thoughtful design, and room to keep improving.
-
-## Focus areas
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-<picture>
-  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/ai-systems-mobile-light.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/ai-systems-light.svg" />
-  <source media="(max-width: 600px)" srcset="./assets/ai-systems-mobile.svg" />
-  <img src="./assets/ai-systems.svg" width="100%" alt="AI and agent systems: language models, tools, automation, validation, and human review." />
-</picture>
-    </td>
-    <td width="50%" valign="top">
-<picture>
-  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/engineering-mobile-light.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/engineering-light.svg" />
-  <source media="(max-width: 600px)" srcset="./assets/engineering-mobile.svg" />
-  <img src="./assets/engineering.svg" width="100%" alt="Software engineering: clear interfaces, focused modules, dependable systems, and maintainable code." />
-</picture>
-    </td>
-  </tr>
-</table>
-
-## Engineering approach
-
-| Focus | What it means in my work |
-| :--- | :--- |
-| **Applied AI** | Structured model output, explicit validation, and practical fallbacks. |
-| **Agent workflows** | Tool use, persistent state, clear boundaries, and human review. |
-| **Reliable execution** | Resumable queues, bounded concurrency, retries, and visible failures. |
-| **Maintainable software** | Focused modules, automated tests, and straightforward interfaces. |
-
-**Working toolkit** &nbsp; Python · JavaScript · SQL · HTML/CSS · Git
-
-<details>
-<summary><strong>Inside the work: what I'm exploring</strong></summary>
-
-<br />
-
-- Agents that can use tools while leaving a clear record of their decisions.
-- Workflows that combine deterministic rules with model assistance.
-- Better ways to evaluate model output and handle uncertain results.
-- Interfaces that make complex background work easy to understand.
-
-</details>
-
----
 
 <p align="center"><sub>Read the field. Build the play. Keep improving.</sub></p>
