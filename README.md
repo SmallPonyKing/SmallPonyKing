@@ -1,12 +1,12 @@
 <p align="center">
   <picture>
     <source media="(max-width: 600px)" srcset="./assets/hero-mobile.svg" />
-    <img src="./assets/hero.svg" width="100%" alt="SmallPonyKing — Intelligence, engineered. AI, agents, and software engineering." />
+    <img src="./assets/hero.svg" width="100%" alt="SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering with a soccer-inspired identity." />
   </picture>
 </p>
 
 <p align="center">
-  <a href="#focus-areas"><img src="./assets/explore.svg" height="46" alt="Explore my focus" /></a>
+  <a href="#software-evolution"><img src="./assets/explore.svg" height="46" alt="Follow the ball through software evolution" /></a>
   <a href="https://github.com/SmallPonyKing/SmallPonyKing/issues/new"><img src="./assets/discuss.svg" height="46" alt="Start a conversation by opening a GitHub issue" /></a>
   <a href="#engineering-approach"><img src="./assets/approach.svg" height="46" alt="Read my engineering approach" /></a>
 </p>
@@ -16,10 +16,21 @@
   Exploring how language models, tools, and thoughtful engineering can work together.
 </p>
 
+## Software evolution
+
+Code and algorithms. Connected software. Cloud systems. Applied AI. Agent workflows.<br />
+Each layer expands what we can build. The ball traces that progression to my focus today.
+
 <picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/workflow.svg" />
-  <img src="./assets/workflow.gif" width="100%" alt="Animated workflow: observe, reason, build, validate, iterate." />
+  <source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="./assets/evolution-mobile-static.png" />
+  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/evolution-static.png" />
+  <source media="(max-width: 600px)" srcset="./assets/evolution-mobile.gif" />
+  <img src="./assets/evolution.gif" width="100%" alt="A soccer ball moves through software's evolving capabilities: code and algorithms, connected software, cloud systems, applied AI, and agent workflows. It pauses at my current focus: AI and agents grounded in software engineering." />
 </picture>
+
+### Where I am now
+
+My focus is **AI and agent systems, grounded in software engineering**: connecting models with tools, keeping state useful, and making results clear enough for people to review. I care about the foundations behind the intelligence—reliable code, thoughtful design, and room to keep improving.
 
 ## Focus areas
 
@@ -66,4 +77,4 @@
   <a href="https://github.com/SmallPonyKing?tab=repositories">Explore all repositories</a>
 </p>
 
-<p align="center"><sub>Thoughtful systems. Practical outcomes.</sub></p>
+<p align="center"><sub>Read the field. Build the play. Keep improving.</sub></p>
