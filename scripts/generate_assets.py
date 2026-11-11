@@ -56,24 +56,6 @@ svg('hero.svg',1200,460,
     text(908,416,'BUILD / ITERATE',10,GOLD,400,'letter-spacing="2"'),
     'SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering.')
 
-def card(name,number,title,subtitle,description,stack,diagram):
-    svg(name,580,300,
-        '<rect x="1" y="1" width="578" height="298" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
-        text(30,39,'FOCUS AREA  /  '+number,11,GOLD,400,'letter-spacing="2"')+diagram+
-        text(30,112,title,30,WHITE,600,'letter-spacing="-.5"')+
-        text(30,146,subtitle,15,GOLD)+text(30,191,description[0],15,MUTED)+text(30,216,description[1],15,MUTED)+
-        '<path d="M30 249H550" stroke="#2b3442"/>'+text(30,279,stack,12,MUTED),
-        f'{title}. {subtitle}. {" ".join(description)} {stack}.')
-
-card('ai-systems.svg','01','AI & Agent Systems','Models → tools → useful workflows',
-     ('Exploring tool use, structured output, and human review.', 'Turning model capabilities into practical software.'),
-     'APPLIED AI   /   AGENTS   /   AUTOMATION',
-     '<path d="M468 39h55m-55 13h55m-55 13h33" stroke="#dbc29a" stroke-opacity=".65"/><circle cx="548" cy="58" r="5" fill="#dbc29a"/>')
-card('engineering.svg','02','Software Engineering','Design → build → improve',
-     ('Clear interfaces, focused modules, and dependable APIs.', 'Built for maintainability, observability, and iteration.'),
-     'PYTHON   /   JAVASCRIPT   /   SQL   /   GIT',
-     '<path d="M504 36l-14 14 14 14m28-28l14 14-14 14m-10-30l-10 33" fill="none" stroke="#dbc29a" stroke-width="1.5"/>')
-
 # Compact artwork keeps headings readable when the README is viewed on a phone.
 svg('hero-mobile.svg',600,510,
     '<rect x="1" y="1" width="598" height="508" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
@@ -86,14 +68,7 @@ svg('hero-mobile.svg',600,510,
     text(36,369,'Code. Systems. Intelligence.',22,MUTED)+text(36,400,'Always moving forward.',22,MUTED)+
     '<path d="M36 443H564" stroke="#2b3442"/>'+text(36,478,'ALWAYS LEARNING. ALWAYS MOVING FORWARD.',12,MUTED),
     'SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering.')
-for name,num,title,description in (
-    ('ai-systems-mobile.svg','01',('AI & Agent','Systems'),('Models. Tools.','Human review.')),
-    ('engineering-mobile.svg','02',('Software','Engineering'),('Design. Build.','Keep improving.')),
-):
-    svg(name,300,236,
-        '<rect x="1" y="1" width="298" height="234" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
-        text(22,34,'FOCUS AREA / '+num,11,GOLD)+text(22,91,title[0],32,WHITE,600)+text(22,129,title[1],32,WHITE,600)+
-        text(22,174,description[0],17,MUTED)+text(22,201,description[1],17,MUTED),
-        ' '.join(title)+'. '+' '.join(description))
+from generate_landscape import generate
+generate()
 
 print('Generated', len(list(OUT.glob('*.svg'))), 'SVG assets.')
