@@ -36,28 +36,28 @@ svg('hero.svg',1200,460,
 def button(name,label,width,primary=False):
     svg(name,width,54,f'<rect x="1" y="1" width="{width-2}" height="52" rx="10" fill="{GOLD if primary else PANEL}" stroke="{GOLD if primary else "#344050"}"/>'+text(21,33,label,14,INK if primary else WHITE,600)+f'<path d="M{width-36} 21l6 6-6 6m-8-6h14" stroke="{INK if primary else GOLD}" stroke-width="1.5" fill="none"/>',label)
 
-button('explore.svg','Explore projects',206,True)
+button('explore.svg','Explore my focus',206,True)
 button('discuss.svg','Start a conversation',244)
 button('approach.svg','Engineering approach',258)
 
 def card(name,number,title,subtitle,description,stack,diagram):
     svg(name,580,334,
         '<rect x="1" y="1" width="578" height="332" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
-        text(30,39,'SELECTED WORK  /  '+number,11,GOLD,400,'letter-spacing="2"')+diagram+
+        text(30,39,'FOCUS AREA  /  '+number,11,GOLD,400,'letter-spacing="2"')+diagram+
         text(30,112,title,30,WHITE,600,'letter-spacing="-.5"')+
         text(30,146,subtitle,15,GOLD)+text(30,191,description[0],15,MUTED)+text(30,216,description[1],15,MUTED)+
-        '<path d="M30 249H550" stroke="#2b3442"/>'+text(30,279,stack,12,MUTED)+text(30,309,'EXPLORE REPOSITORY',11,GOLD,600,'letter-spacing="1.4"')+
+        '<path d="M30 249H550" stroke="#2b3442"/>'+text(30,279,stack,12,MUTED)+text(30,309,'MY APPROACH',11,GOLD,600,'letter-spacing="1.4"')+
         '<path d="M526 295l9 8-9 8m-12-8h21" fill="none" stroke="#dbc29a" stroke-width="1.5"/>',
-        f'{title}. {subtitle}. {" ".join(description)} {stack}. Explore repository.')
+        f'{title}. {subtitle}. {" ".join(description)} {stack}. Read my engineering approach.')
 
-card('job-scraper.svg','01','Job Scraper Agent','Discovery → enrichment → matching',
-     ('Public job discovery with model-assisted enrichment.', 'Durable queues. Resumable scans. Reviewable results.'),
-     'PYTHON   /   SQLITE   /   OLLAMA   /   JAVASCRIPT',
+card('ai-systems.svg','01','AI & Agent Systems','Models → tools → useful workflows',
+     ('Exploring tool use, structured output, and human review.', 'Turning model capabilities into practical software.'),
+     'APPLIED AI   /   AGENTS   /   AUTOMATION',
      '<path d="M468 39h55m-55 13h55m-55 13h33" stroke="#dbc29a" stroke-opacity=".65"/><circle cx="548" cy="58" r="5" fill="#dbc29a"/>')
-card('mail-check.svg','02','Mail Check Agent','Evidence → validation → review',
-     ('Compare reported applications with confirmation evidence.', 'Mailbox integrations. Audit history. Exportable reports.'),
-     'PYTHON   /   IMAP   /   OAUTH   /   SQLITE',
-     '<rect x="494" y="34" width="48" height="32" rx="4" fill="none" stroke="#dbc29a" stroke-opacity=".65"/><path d="M495 36l23 17 23-17" fill="none" stroke="#dbc29a"/>')
+card('engineering.svg','02','Software Engineering','Design → build → improve',
+     ('Clear interfaces, focused modules, and dependable APIs.', 'Built for maintainability, observability, and iteration.'),
+     'PYTHON   /   JAVASCRIPT   /   SQL   /   GIT',
+     '<path d="M504 36l-14 14 14 14m28-28l14 14-14 14m-10-30l-10 33" fill="none" stroke="#dbc29a" stroke-width="1.5"/>')
 
 svg('workflow.svg',1200,144,
     '<rect x="1" y="1" width="1198" height="142" rx="20" fill="#0c1017" stroke="#2b3442"/>'+text(30,33,'THE WORKFLOW',10,GOLD,400,'letter-spacing="2"')+
@@ -78,14 +78,14 @@ svg('hero-mobile.svg',600,510,
     '<path d="M36 443H564" stroke="#2b3442"/>'+text(36,478,'THOUGHTFUL SYSTEMS. PRACTICAL OUTCOMES.',12,MUTED),
     'SmallPonyKing — Intelligence, engineered. AI, agents, and software engineering.')
 for name,num,title,description in (
-    ('job-scraper-mobile.svg','01',('Job Scraper','Agent'),('Discover. Enrich.','Match opportunities.')),
-    ('mail-check-mobile.svg','02',('Mail Check','Agent'),('Evidence. Validation.','Reviewable results.')),
+    ('ai-systems-mobile.svg','01',('AI & Agent','Systems'),('Models. Tools.','Human review.')),
+    ('engineering-mobile.svg','02',('Software','Engineering'),('Design. Build.','Keep improving.')),
 ):
     svg(name,300,280,
         '<rect x="1" y="1" width="298" height="278" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
-        text(22,34,'SELECTED WORK / '+num,11,GOLD)+text(22,91,title[0],32,WHITE,600)+text(22,129,title[1],32,WHITE,600)+
+        text(22,34,'FOCUS AREA / '+num,11,GOLD)+text(22,91,title[0],32,WHITE,600)+text(22,129,title[1],32,WHITE,600)+
         text(22,174,description[0],17,MUTED)+text(22,201,description[1],17,MUTED)+
-        '<path d="M22 225H278" stroke="#2b3442"/>'+text(22,256,'EXPLORE REPOSITORY →',13,GOLD,600),
+        '<path d="M22 225H278" stroke="#2b3442"/>'+text(22,256,'MY APPROACH →',13,GOLD,600),
         ' '.join(title)+'. '+' '.join(description))
 
 print('Generated', len(list(OUT.glob('*.svg'))), 'SVG assets.')
