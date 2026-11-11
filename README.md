@@ -1,14 +1,10 @@
 <p align="center">
-  <picture>
-    <source media="(max-width: 600px)" srcset="./assets/hero-mobile.svg" />
-    <img src="./assets/hero.svg" width="100%" alt="SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering with a soccer-inspired identity." />
-  </picture>
-</p>
-
-<p align="center">
-  <a href="#software-evolution"><img src="./assets/explore.svg" height="46" alt="Follow the ball through software evolution" /></a>
-  <a href="https://github.com/SmallPonyKing/SmallPonyKing/issues/new"><img src="./assets/discuss.svg" height="46" alt="Start a conversation by opening a GitHub issue" /></a>
-  <a href="#engineering-approach"><img src="./assets/approach.svg" height="46" alt="Read my engineering approach" /></a>
+<picture>
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/hero-mobile-light.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/hero-light.svg" />
+  <source media="(max-width: 600px)" srcset="./assets/hero-mobile.svg" />
+  <img src="./assets/hero.svg" width="100%" alt="SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering." />
+</picture>
 </p>
 
 <p align="center">
@@ -19,14 +15,25 @@
 ## Software evolution
 
 Code and algorithms. Connected software. Cloud systems. Applied AI. Agent workflows.<br />
-Each layer expands what we can build. The ball traces that progression to my focus today.
+Each layer expands what we can build. Follow the ball to my focus today.
+
+<details>
+<summary><strong>⚽ Follow the ball</strong> — click to reveal the animation</summary>
+
+<br />
 
 <picture>
+  <source media="(prefers-color-scheme: light) and (prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="./assets/evolution-mobile-light-static.png" />
+  <source media="(prefers-color-scheme: light) and (prefers-reduced-motion: reduce)" srcset="./assets/evolution-light-static.png" />
   <source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="./assets/evolution-mobile-static.png" />
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/evolution-static.png" />
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/evolution-mobile-light.gif" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/evolution-light.gif" />
   <source media="(max-width: 600px)" srcset="./assets/evolution-mobile.gif" />
-  <img src="./assets/evolution.gif" width="100%" alt="A soccer ball moves through software's evolving capabilities: code and algorithms, connected software, cloud systems, applied AI, and agent workflows. It pauses at my current focus: AI and agents grounded in software engineering." />
+  <img src="./assets/evolution.gif" width="100%" alt="A soccer ball moves through code and algorithms, connected software, cloud systems, applied AI, and agent workflows. It pauses at my current focus: AI and agents grounded in software engineering." />
 </picture>
+
+</details>
 
 ### Where I am now
 
@@ -37,10 +44,20 @@ My focus is **AI and agent systems, grounded in software engineering**: connecti
 <table>
   <tr>
     <td width="50%" valign="top">
-      <a href="#engineering-approach"><picture><source media="(max-width: 600px)" srcset="./assets/ai-systems-mobile.svg" /><img src="./assets/ai-systems.svg" width="100%" alt="AI and agent systems: language models, tools, automation, validation, and human review." /></picture></a>
+<picture>
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/ai-systems-mobile-light.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/ai-systems-light.svg" />
+  <source media="(max-width: 600px)" srcset="./assets/ai-systems-mobile.svg" />
+  <img src="./assets/ai-systems.svg" width="100%" alt="AI and agent systems: language models, tools, automation, validation, and human review." />
+</picture>
     </td>
     <td width="50%" valign="top">
-      <a href="#engineering-approach"><picture><source media="(max-width: 600px)" srcset="./assets/engineering-mobile.svg" /><img src="./assets/engineering.svg" width="100%" alt="Software engineering: clear interfaces, focused modules, dependable systems, and maintainable code." /></picture></a>
+<picture>
+  <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="./assets/engineering-mobile-light.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/engineering-light.svg" />
+  <source media="(max-width: 600px)" srcset="./assets/engineering-mobile.svg" />
+  <img src="./assets/engineering.svg" width="100%" alt="Software engineering: clear interfaces, focused modules, dependable systems, and maintainable code." />
+</picture>
     </td>
   </tr>
 </table>
@@ -69,12 +86,5 @@ My focus is **AI and agent systems, grounded in software engineering**: connecti
 </details>
 
 ---
-
-<p align="center">
-  <strong>Have a workflow worth improving?</strong><br />
-  <a href="https://github.com/SmallPonyKing/SmallPonyKing/issues/new">Start a conversation</a>
-  &nbsp; · &nbsp;
-  <a href="https://github.com/SmallPonyKing?tab=repositories">Explore all repositories</a>
-</p>
 
 <p align="center"><sub>Read the field. Build the play. Keep improving.</sub></p>

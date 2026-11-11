@@ -2,6 +2,7 @@
 from pathlib import Path
 from html import escape
 from math import sin, cos, pi
+import re
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'assets'
@@ -9,7 +10,11 @@ OUT.mkdir(exist_ok=True)
 INK, PANEL, GOLD, WHITE, MUTED = '#0c1017', '#121923', '#dbc29a', '#f5f0e8', '#9ba7b6'
 
 def svg(name, width, height, content, title):
-    (OUT / name).write_text(f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title"><title id="title">{escape(title)}</title><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#151e2b"/><stop offset="1" stop-color="{INK}"/></linearGradient><linearGradient id="gold"><stop stop-color="#b49565"/><stop offset=".5" stop-color="#f1dfbe"/><stop offset="1" stop-color="#b49565"/></linearGradient><radialGradient id="glow"><stop stop-color="#dbc29a" stop-opacity=".12"/><stop offset="1" stop-color="#dbc29a" stop-opacity="0"/></radialGradient></defs><rect width="{width}" height="{height}" rx="20" fill="{INK}"/>{content}</svg>''')
+    markup = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title"><title id="title">{escape(title)}</title><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#151e2b"/><stop offset="1" stop-color="{INK}"/></linearGradient><linearGradient id="gold"><stop stop-color="#b49565"/><stop offset=".5" stop-color="#f1dfbe"/><stop offset="1" stop-color="#b49565"/></linearGradient><radialGradient id="glow"><stop stop-color="#dbc29a" stop-opacity=".12"/><stop offset="1" stop-color="#dbc29a" stop-opacity="0"/></radialGradient></defs><rect width="{width}" height="{height}" rx="20" fill="{INK}"/>{content}</svg>'''
+    (OUT / name).write_text(markup)
+    palette = {INK: '#f7f9f8', PANEL: '#ffffff', GOLD: '#836027', WHITE: '#15252c', MUTED: '#4d6168', '#151e2b': '#ffffff', '#2b3442': '#d3dfda', '#344050': '#bdcec5', '#fff': '#557264', '#b49565': '#b99a63', '#f1dfbe': '#ead4ae'}
+    light = re.sub(r'#[0-9a-fA-F]{6}(?![0-9a-fA-F])|#[0-9a-fA-F]{3}(?![0-9a-fA-F])', lambda match: palette.get(match.group(0), match.group(0)), markup)
+    (OUT / (Path(name).stem + '-light.svg')).write_text(light)
 
 def text(x, y, value, size=16, fill=MUTED, weight=400, extra=''):
     return f'<text x="{x}" y="{y}" font-family="Arial,Helvetica,sans-serif" font-size="{size}" fill="{fill}" font-weight="{weight}" {extra}>{escape(value)}</text>'
@@ -18,16 +23,16 @@ def soccer_ball(cx, cy, radius):
     def point(r, a):
         return f'{r*cos(a):.3f},{r*sin(a):.3f}'
     angles = [-pi/2+i*2*pi/5 for i in range(5)]
-    content = f'<defs><clipPath id="ball-clip"><circle r="{radius}"/></clipPath></defs><circle r="{radius}" fill="{WHITE}"/>'
+    content = f'<defs><clipPath id="ball-clip"><circle r="{radius}"/></clipPath></defs><circle r="{radius}" fill="#fffaf0"/>'
     content += '<g clip-path="url(#ball-clip)">'
     center = ' '.join(point(radius*.38,a) for a in angles)
-    content += f'<polygon points="{center}" fill="{INK}"/>'
+    content += f'<polygon points="{center}" fill="#0b141b"/>'
     for a in angles:
         inner, outer = point(radius*.38,a), point(radius*.68,a)
-        content += f'<path d="M{inner}L{outer}" stroke="{INK}" stroke-width="{radius*.045}"/>'
+        content += f'<path d="M{inner}L{outer}" stroke="#0b141b" stroke-width="{radius*.045}"/>'
         vertices = [(radius*.68,a),(radius*.82,a-.28),(radius*1.1,a-.4),(radius*1.1,a+.4),(radius*.82,a+.28)]
         points = ' '.join(point(r,theta) for r,theta in vertices)
-        content += f'<polygon points="{points}" fill="{INK}"/>'
+        content += f'<polygon points="{points}" fill="#0b141b"/>'
     content += f'</g><circle r="{radius}" fill="none" stroke="{GOLD}" stroke-width="1.5"/>'
     return f'<g transform="translate({cx} {cy})">{content}</g>'
 
@@ -51,22 +56,14 @@ svg('hero.svg',1200,460,
     text(908,416,'BUILD / ITERATE',10,GOLD,400,'letter-spacing="2"'),
     'SmallPonyKing — Read the field. Build the play. AI, agents, and software engineering.')
 
-def button(name,label,width,primary=False):
-    svg(name,width,54,f'<rect x="1" y="1" width="{width-2}" height="52" rx="10" fill="{GOLD if primary else PANEL}" stroke="{GOLD if primary else "#344050"}"/>'+text(21,33,label,14,INK if primary else WHITE,600)+f'<path d="M{width-36} 21l6 6-6 6m-8-6h14" stroke="{INK if primary else GOLD}" stroke-width="1.5" fill="none"/>',label)
-
-button('explore.svg','Follow the ball',206,True)
-button('discuss.svg','Start a conversation',244)
-button('approach.svg','Engineering approach',258)
-
 def card(name,number,title,subtitle,description,stack,diagram):
-    svg(name,580,334,
-        '<rect x="1" y="1" width="578" height="332" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
+    svg(name,580,300,
+        '<rect x="1" y="1" width="578" height="298" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
         text(30,39,'FOCUS AREA  /  '+number,11,GOLD,400,'letter-spacing="2"')+diagram+
         text(30,112,title,30,WHITE,600,'letter-spacing="-.5"')+
         text(30,146,subtitle,15,GOLD)+text(30,191,description[0],15,MUTED)+text(30,216,description[1],15,MUTED)+
-        '<path d="M30 249H550" stroke="#2b3442"/>'+text(30,279,stack,12,MUTED)+text(30,309,'MY APPROACH',11,GOLD,600,'letter-spacing="1.4"')+
-        '<path d="M526 295l9 8-9 8m-12-8h21" fill="none" stroke="#dbc29a" stroke-width="1.5"/>',
-        f'{title}. {subtitle}. {" ".join(description)} {stack}. Read my engineering approach.')
+        '<path d="M30 249H550" stroke="#2b3442"/>'+text(30,279,stack,12,MUTED),
+        f'{title}. {subtitle}. {" ".join(description)} {stack}.')
 
 card('ai-systems.svg','01','AI & Agent Systems','Models → tools → useful workflows',
      ('Exploring tool use, structured output, and human review.', 'Turning model capabilities into practical software.'),
@@ -93,11 +90,10 @@ for name,num,title,description in (
     ('ai-systems-mobile.svg','01',('AI & Agent','Systems'),('Models. Tools.','Human review.')),
     ('engineering-mobile.svg','02',('Software','Engineering'),('Design. Build.','Keep improving.')),
 ):
-    svg(name,300,280,
-        '<rect x="1" y="1" width="298" height="278" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
+    svg(name,300,236,
+        '<rect x="1" y="1" width="298" height="234" rx="20" fill="url(#bg)" stroke="#2b3442"/>'+
         text(22,34,'FOCUS AREA / '+num,11,GOLD)+text(22,91,title[0],32,WHITE,600)+text(22,129,title[1],32,WHITE,600)+
-        text(22,174,description[0],17,MUTED)+text(22,201,description[1],17,MUTED)+
-        '<path d="M22 225H278" stroke="#2b3442"/>'+text(22,256,'MY APPROACH →',13,GOLD,600),
+        text(22,174,description[0],17,MUTED)+text(22,201,description[1],17,MUTED),
         ' '.join(title)+'. '+' '.join(description))
 
 print('Generated', len(list(OUT.glob('*.svg'))), 'SVG assets.')
