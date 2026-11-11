@@ -1,43 +1,73 @@
-# SmallPonyKing
+<p align="center">
+  <picture>
+    <source media="(max-width: 600px)" srcset="./assets/hero-mobile.svg" />
+    <img src="./assets/hero.svg" width="100%" alt="SmallPonyKing — Intelligence, engineered. AI, agents, and software engineering." />
+  </picture>
+</p>
 
-### AI · Agents · Software Engineering
+<p align="center">
+  <a href="#selected-work"><img src="./assets/explore.svg" height="46" alt="Explore projects" /></a>
+  <a href="https://github.com/SmallPonyKing/SmallPonyKing/issues/new"><img src="./assets/discuss.svg" height="46" alt="Start a conversation by opening a GitHub issue" /></a>
+  <a href="#engineering-approach"><img src="./assets/approach.svg" height="46" alt="Read my engineering approach" /></a>
+</p>
 
-I build software that turns repetitive research and review into practical workflows. My current projects combine Python, language models, durable data pipelines, and simple web interfaces.
+<p align="center">
+  I build software that turns repetitive research and review into practical workflows.<br />
+  My focus: useful AI, agents with inspectable results, and systems that recover when work gets interrupted.
+</p>
 
-I'm interested in agents that use tools, keep useful state, and produce results people can inspect.
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/workflow.svg" />
+  <img src="./assets/workflow.gif" width="100%" alt="Animated workflow: observe, reason, build, validate, iterate." />
+</picture>
 
-## Selected projects
+## Selected work
 
-### [Job Scraper Agent](https://github.com/SmallPonyKing/Job-Scraper-Agent)
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://github.com/SmallPonyKing/Job-Scraper-Agent"><picture><source media="(max-width: 600px)" srcset="./assets/job-scraper-mobile.svg" /><img src="./assets/job-scraper.svg" width="100%" alt="Job Scraper Agent — public job discovery, Ollama enrichment, persistent queues, and role matching. Open repository." /></picture></a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://github.com/SmallPonyKing/Mail-check-agent"><picture><source media="(max-width: 600px)" srcset="./assets/mail-check-mobile.svg" /><img src="./assets/mail-check.svg" width="100%" alt="Mail Check Agent — application confirmation evidence, mailbox integrations, audit history, and reports. Open repository." /></picture></a>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/SmallPonyKing/Job-Scraper-Agent#readme">Read the architecture &amp; setup ↗</a></td>
+    <td><a href="https://github.com/SmallPonyKing/Mail-check-agent#readme">Explore the audit workflow ↗</a></td>
+  </tr>
+</table>
 
-A career research tool that gathers public job listings, enriches them with Ollama, and matches opportunities to saved role groups.
+## Engineering approach
 
-- Source adapters for shared hiring platforms and company career pages.
-- Persistent SQLite queues with cancellation, retries, and resumable scans.
-- Separate network and model workers, with a browser interface for reviewing results.
+| Focus | What it means in my work |
+| :--- | :--- |
+| **Applied AI** | Structured model output, explicit validation, and practical fallbacks. |
+| **Agent workflows** | Tool use, persistent state, clear boundaries, and human review. |
+| **Reliable execution** | Resumable queues, bounded concurrency, retries, and visible failures. |
+| **Maintainable software** | Focused modules, automated tests, and straightforward interfaces. |
 
-**Built with:** Python, SQLite, Ollama, JavaScript, HTML, CSS.
+**Working toolkit** &nbsp; Python · SQLite · Ollama · JavaScript · HTML/CSS · Git
 
-### [Mail Check Agent · BidderCheck](https://github.com/SmallPonyKing/Mail-check-agent)
+<details>
+<summary><strong>Inside the work: what I'm exploring</strong></summary>
 
-A local application that compares reported job applications with confirmation emails and submission pages.
+<br />
 
-- Evidence matching with optional language model assistance.
-- Gmail and Microsoft mailbox integrations.
-- Reviewable results, saved audit history, and CSV/PDF reports.
+- Agents that can use tools while leaving a clear record of their decisions.
+- Workflows that combine deterministic rules with model assistance.
+- Better ways to evaluate model output and handle uncertain results.
+- Interfaces that make complex background work easy to understand.
 
-**Built with:** Python, SQLite, IMAP, Microsoft OAuth, Ollama, JavaScript.
-
-## What I'm exploring
-
-- **Agent workflows:** tool use, persistent state, and human review.
-- **Applied AI:** structured model output, validation, and useful fallbacks.
-- **Software engineering:** clear module boundaries, automated tests, and recoverable background work.
-
-## How I approach building
-
-Keep the interface simple. Make decisions traceable. Test failure paths as well as successful ones. Use AI where it helps, and keep important behavior explicit in code.
+</details>
 
 ---
 
-Explore the repositories above for implementation details, tests, and ongoing work. For project questions or suggestions, open an issue in the relevant repository.
+<p align="center">
+  <strong>Have a workflow worth improving?</strong><br />
+  <a href="https://github.com/SmallPonyKing/SmallPonyKing/issues/new">Start a conversation</a>
+  &nbsp; · &nbsp;
+  <a href="https://github.com/SmallPonyKing?tab=repositories">Explore all repositories</a>
+</p>
+
+<p align="center"><sub>Thoughtful systems. Practical outcomes.</sub></p>
