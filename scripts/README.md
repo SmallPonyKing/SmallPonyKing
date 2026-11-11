@@ -1,24 +1,31 @@
-# Profile artwork
+# Profile motion artwork
 
-Original soccer artwork and a simplified software-evolution timeline, with separate light and dark palettes and desktop and phone layouts. The timeline describes expanding capabilities rather than a dated career history.
+The opening soccer hero, six individually animated brand cards, and software-evolution timeline are all visible and animated by default. Every section has desktop/phone and light/dark variants. Native picture sources select static PNG posters for reduced-motion preferences.
 
-Regenerate the hero and AI-logo landscape (including desktop/phone and light/dark variants):
+The README has no collapsed sections, navigation links, buttons, or custom scripts.
+
+## Rebuild
+
+Python regenerates the static vector artwork:
 
 ```sh
 python3 scripts/generate_assets.py
 ```
 
-Regenerate the animated timelines and still images on macOS using Swift and system graphics frameworks:
+On macOS, render the original logo paths into transparent PNG layers with WebKit:
 
 ```sh
-swift scripts/render_evolution.swift assets
-swift scripts/render_evolution.swift assets --mobile
-swift scripts/render_evolution.swift assets --light
-swift scripts/render_evolution.swift assets --mobile --light
+swift scripts/rasterize_logos.swift assets/logos
 ```
 
-Each GIF contains 96 frames with a pause at the final focus. PNG exports of the final frames serve reduced-motion preferences. README picture sources select the appropriate palette, screen size, and motion setting.
+For each flag combination (none, `--light`, `--mobile`, and `--mobile --light`), run:
 
-The README contains no authored links or buttons. Its native details/summary disclosure reveals the animation when opened and hides it when closed. The image animation loops independently; opening the section does not guarantee playback restarts at frame zero. No custom click handlers or scripts run in GitHub's renderer.
+```sh
+swift scripts/render_profile_motion.swift assets
+swift scripts/render_profile_motion.swift assets --hero
+swift scripts/render_evolution.swift assets
+```
 
-The landscape generator embeds the six vendored logos with one short description each. See assets/logos/README.md and its included source license for provenance. The visible profile contains no navigation links or buttons.
+Append the selected flags to each command. The hero and brand panels contain 72 frames per six-second loop. The timeline contains 120 frames and pauses at the current focus. Each renderer also exports a still PNG poster.
+
+Per-brand conceptual motifs and their first-party research sources are in assets/logos/MOTION_RESEARCH.md. All third-party logo paths and the upstream source license remain included locally.

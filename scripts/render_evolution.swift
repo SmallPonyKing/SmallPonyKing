@@ -10,7 +10,7 @@ let mobile = CommandLine.arguments.contains("--mobile")
 let light = CommandLine.arguments.contains("--light")
 let width = mobile ? 600 : 1200
 let height = mobile ? 1080 : 460
-let frameCount = 96
+let frameCount = 120
 let prefix = (mobile ? "evolution-mobile" : "evolution") + (light ? "-light" : "")
 let rgb = CGColorSpaceCreateDeviceRGB()
 func color(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ alpha: CGFloat = 1) -> CGColor {
@@ -138,9 +138,25 @@ for frame in 0..<frameCount {
             text(ctx,descriptions[i][1],x,332,15,muted,centered:true)
         }
     }
+    for j in 1...7 {
+        let previous=max(0,progress-CGFloat(j)*0.012)
+        let dot=mobile ? point(86,240+previous*640):point(120+previous*960,234)
+        ctx.setFillColor(accent(CGFloat(8-j)*0.035))
+        let radius=CGFloat(9-j)*0.8
+        ctx.fillEllipse(in:CGRect(x:dot.x-radius,y:dot.y-radius,width:radius*2,height:radius*2))
+    }
+    for (i,node) in nodes.enumerated() {
+        let distance=abs(progress-CGFloat(i)/4)
+        let intensity=max(0,1-distance*7)
+        if intensity>0 {
+            ctx.setStrokeColor(accent(intensity*0.5));ctx.setLineWidth(1.7)
+            let ring=CGFloat(15)+intensity*17
+            ctx.strokeEllipse(in:CGRect(x:node.x-ring,y:node.y-ring,width:ring*2,height:ring*2))
+        }
+    }
     let bump = sin(local*CGFloat.pi)*(mobile ? CGFloat(22):CGFloat(31))
     let ballPosition = mobile ? CGPoint(x:active.x+bump,y:active.y) : CGPoint(x:active.x,y:active.y+bump)
-    if frame == frameCount-1 {
+    if frame >= frameCount-12 {
         ctx.setStrokeColor(accent(0.3));ctx.setLineWidth(1.5)
         ctx.strokeEllipse(in:CGRect(x:ballPosition.x-35,y:ballPosition.y-35,width:70,height:70))
     }
