@@ -1,20 +1,22 @@
 # Profile artwork
 
-All artwork is original and stored in this repository. The profile uses a soccer ball as the moving point through a simplified view of software evolution, ending at the current AI and agent focus. The stages are expanding capabilities, not dated career milestones or claims that earlier approaches have been replaced.
+Original soccer artwork and a simplified software-evolution timeline, with separate light and dark palettes and desktop and phone layouts. The timeline describes expanding capabilities rather than a dated career history.
 
-Regenerate the static SVG artwork with Python 3:
+Regenerate SVG artwork:
 
 ```sh
 python3 scripts/generate_assets.py
 ```
 
-Regenerate the desktop and phone animations on macOS with Swift and the system CoreGraphics, CoreText, and ImageIO frameworks:
+Regenerate the animated timelines and still images on macOS using Swift and system graphics frameworks:
 
 ```sh
 swift scripts/render_evolution.swift assets
 swift scripts/render_evolution.swift assets --mobile
+swift scripts/render_evolution.swift assets --light
+swift scripts/render_evolution.swift assets --mobile --light
 ```
 
-Each animation contains 96 frames and loops in roughly nine seconds, including a pause at the final position. The generator also exports a PNG of the final frame. The README selects those still images for reduced-motion preferences and uses a vertical timeline on phone screens.
+Each GIF contains 96 frames with a pause at the final focus. PNG exports of the final frames serve reduced-motion preferences. README picture sources select the appropriate palette, screen size, and motion setting.
 
-Buttons and focus cards are ordinary links. No JavaScript or external image services are required.
+The README contains no authored links or buttons. Its native details/summary disclosure reveals the animation when opened and hides it when closed. The image animation loops independently; opening the section does not guarantee playback restarts at frame zero. No custom click handlers or scripts run in GitHub's renderer.

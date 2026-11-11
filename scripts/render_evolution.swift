@@ -7,16 +7,22 @@ import UniformTypeIdentifiers
 
 let outputDirectory = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "assets", isDirectory: true)
 let mobile = CommandLine.arguments.contains("--mobile")
+let light = CommandLine.arguments.contains("--light")
 let width = mobile ? 600 : 1200
 let height = mobile ? 1080 : 460
 let frameCount = 96
-let prefix = mobile ? "evolution-mobile" : "evolution"
+let prefix = (mobile ? "evolution-mobile" : "evolution") + (light ? "-light" : "")
 let rgb = CGColorSpaceCreateDeviceRGB()
 func color(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ alpha: CGFloat = 1) -> CGColor {
     CGColor(red: r/255, green: g/255, blue: b/255, alpha: alpha)
 }
-let ink = color(12, 19, 23), gold = color(219, 194, 154), white = color(245, 240, 232)
-let muted = color(155, 172, 177), green = color(106, 147, 130), border = color(40, 60, 57)
+func accent(_ alpha: CGFloat = 1) -> CGColor { light ? color(131,96,39,alpha) : color(219,194,154,alpha) }
+func pitch(_ alpha: CGFloat = 1) -> CGColor { light ? color(68,117,98,alpha) : color(106,147,130,alpha) }
+let ink = light ? color(249,251,249) : color(12,19,23)
+let gold = accent(), white = light ? color(21,37,44) : color(245,240,232)
+let muted = light ? color(77,97,104) : color(155,172,177)
+let green = pitch(), border = light ? color(203,218,209) : color(40,60,57)
+let ballInk = color(11,20,27), ballWhite = color(255,250,240)
 func point(_ x: CGFloat, _ top: CGFloat) -> CGPoint { CGPoint(x: x, y: CGFloat(height) - top) }
 func box(_ x: CGFloat, _ top: CGFloat, _ w: CGFloat, _ h: CGFloat) -> CGRect {
     CGRect(x: x, y: CGFloat(height) - top - h, width: w, height: h)
@@ -56,14 +62,14 @@ func ball(_ ctx: CGContext, _ center: CGPoint, _ radius: CGFloat, _ angle: CGFlo
     ctx.fillEllipse(in: CGRect(x: center.x-radius, y: center.y-radius-10, width: radius*2, height: radius*0.4))
     ctx.translateBy(x: center.x, y: center.y); ctx.rotate(by: angle)
     let circle = CGRect(x: -radius, y: -radius, width: radius*2, height: radius*2)
-    ctx.setFillColor(white); ctx.fillEllipse(in: circle)
+    ctx.setFillColor(ballWhite); ctx.fillEllipse(in: circle)
     ctx.saveGState(); ctx.addEllipse(in: circle); ctx.clip()
     let angles = (0..<5).map { CGFloat($0)*CGFloat.pi*2/5 + CGFloat.pi/2 }
-    polygon(ctx, angles.map { polar(radius*0.38, $0) }, fill: ink)
+    polygon(ctx, angles.map { polar(radius*0.38, $0) }, fill: ballInk)
     for theta in angles {
-        line(ctx, polar(radius*0.38, theta), polar(radius*0.68, theta), ink, radius*0.045)
+        line(ctx, polar(radius*0.38, theta), polar(radius*0.68, theta), ballInk, radius*0.045)
         polygon(ctx, [polar(radius*0.68,theta), polar(radius*0.82,theta-0.28),
-                      polar(radius*1.1,theta-0.4), polar(radius*1.1,theta+0.4), polar(radius*0.82,theta+0.28)], fill: ink)
+                      polar(radius*1.1,theta-0.4), polar(radius*1.1,theta+0.4), polar(radius*0.82,theta+0.28)], fill: ballInk)
     }
     ctx.restoreGState()
     ctx.setStrokeColor(gold); ctx.setLineWidth(1.4); ctx.strokeEllipse(in: circle)
@@ -80,7 +86,7 @@ let descriptions = [
 ]
 let destination = CGImageDestinationCreateWithURL(outputDirectory.appendingPathComponent(prefix+".gif") as CFURL, UTType.gif.identifier as CFString, frameCount, nil)!
 CGImageDestinationSetProperties(destination, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: 0]] as CFDictionary)
-let gradient = CGGradient(colorsSpace: rgb, colors: [color(17,30,30),ink] as CFArray, locations: [0,1])!
+let gradient = CGGradient(colorsSpace: rgb, colors: [light ? color(238,246,240) : color(17,30,30),ink] as CFArray, locations: [0,1])!
 for frame in 0..<frameCount {
     let ctx = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width*4, space: rgb, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
     ctx.setFillColor(ink);ctx.fill(CGRect(x:0,y:0,width:width,height:height))
@@ -92,15 +98,15 @@ for frame in 0..<frameCount {
         text(ctx,"The next play.",36,105,38,white,bold:true)
         text(ctx,"An evolving field. My focus today.",36,143,20)
         rounded(ctx,box(28,180,544,788),18,fill:color(0,0,0,0),stroke:border)
-        ctx.setStrokeColor(color(106,147,130,0.10));ctx.strokeEllipse(in:box(308,410,290,290))
-        line(ctx,point(28,560),point(572,560),color(106,147,130,0.08))
+        ctx.setStrokeColor(pitch(0.10));ctx.strokeEllipse(in:box(308,410,290,290))
+        line(ctx,point(28,560),point(572,560),pitch(0.08))
     } else {
         text(ctx,"SOFTWARE'S EVOLUTION",36,42,12,gold,spacing:2)
         text(ctx,"New capabilities. The next play.",36,84,29,white,bold:true)
         text(ctx,"A WIDER VIEW → MY FOCUS",938,42,11,muted)
         rounded(ctx,box(28,112,1144,264),18,fill:color(0,0,0,0),stroke:border)
-        ctx.setStrokeColor(color(106,147,130,0.12));ctx.strokeEllipse(in:box(528,162,144,144))
-        line(ctx,point(600,112),point(600,376),color(106,147,130,0.12))
+        ctx.setStrokeColor(pitch(0.12));ctx.strokeEllipse(in:box(528,162,144,144))
+        line(ctx,point(600,112),point(600,376),pitch(0.12))
         rounded(ctx,box(28,189,34,90),0,fill:color(0,0,0,0),stroke:border)
         rounded(ctx,box(1138,189,34,90),0,fill:color(0,0,0,0),stroke:border)
     }
@@ -110,9 +116,9 @@ for frame in 0..<frameCount {
     let eased = local*local*(3-2*local)
     let progress = (CGFloat(segment)+eased)/4
     let nodes: [CGPoint] = (0..<5).map { mobile ? point(86,240+CGFloat($0)*160) : point(120+CGFloat($0)*240,234) }
-    line(ctx,nodes[0],nodes[4],color(106,147,130,0.38),1.3)
+    line(ctx,nodes[0],nodes[4],pitch(0.38),1.3)
     let active = mobile ? point(86,240+progress*640) : point(120+progress*960,234)
-    line(ctx,nodes[0],active,color(219,194,154,0.7),2)
+    line(ctx,nodes[0],active,accent(0.7),2)
     for i in 0..<5 {
         let passed = progress >= CGFloat(i)/4
         let node = nodes[i]
@@ -135,7 +141,7 @@ for frame in 0..<frameCount {
     let bump = sin(local*CGFloat.pi)*(mobile ? CGFloat(22):CGFloat(31))
     let ballPosition = mobile ? CGPoint(x:active.x+bump,y:active.y) : CGPoint(x:active.x,y:active.y+bump)
     if frame == frameCount-1 {
-        ctx.setStrokeColor(color(219,194,154,0.3));ctx.setLineWidth(1.5)
+        ctx.setStrokeColor(accent(0.3));ctx.setLineWidth(1.5)
         ctx.strokeEllipse(in:CGRect(x:ballPosition.x-35,y:ballPosition.y-35,width:70,height:70))
     }
     ball(ctx,ballPosition,mobile ? 24:20,-progress*CGFloat.pi*6)
@@ -144,7 +150,7 @@ for frame in 0..<frameCount {
         text(ctx,"SMALLPONYKING",36,1030,13,gold,spacing:2)
         text(ctx,"AI + AGENTS + SOFTWARE ENGINEERING",36,1058,14,white)
     } else {
-        rounded(ctx,box(28,394,1144,44),10,fill:color(219,194,154,0.06),stroke:color(219,194,154,0.18))
+        rounded(ctx,box(28,394,1144,44),10,fill:accent(0.06),stroke:accent(0.18))
         text(ctx,"MY POSITION TODAY",48,422,11,gold,spacing:1.4)
         text(ctx,"AI + agents, grounded in software engineering.",300,423,17,white)
         text(ctx,"SMALLPONYKING",988,422,12,gold,spacing:1)
